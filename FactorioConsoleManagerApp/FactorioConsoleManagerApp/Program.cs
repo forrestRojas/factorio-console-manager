@@ -9,7 +9,10 @@ namespace FactorioConsoleManagerApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Startup startup = new Startup();
+            startup.
+            string gamedata = startup.Configuration.GetSection("Paths")["gamedata"];
+            Console.WriteLine(gamedata);
         }
     }
 }

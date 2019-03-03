@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "FactorioConsoleManagerApp": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "gamedata": "FactorioMockFiles/mods"
+      }
+    }
+  }
+}
