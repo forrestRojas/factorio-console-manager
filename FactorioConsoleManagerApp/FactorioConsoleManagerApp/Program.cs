@@ -1,6 +1,5 @@
 ﻿using System;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Json;
+using Newtonsoft.Json;
 using FactorioConsoleManagerApp.CLI;
 
 namespace FactorioConsoleManagerApp
@@ -9,10 +8,8 @@ namespace FactorioConsoleManagerApp
     {
         static void Main(string[] args)
         {
-            Startup startup = new Startup();
-            startup.
-            string gamedata = startup.Configuration.GetSection("Paths")["gamedata"];
-            Console.WriteLine(gamedata);
+            var json = ("appsettings.json");
+            Console.WriteLine(json);
         }
     }
 }
