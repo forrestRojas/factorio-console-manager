@@ -4,6 +4,7 @@ using FactorioConsoleManagerApp.CLI;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using Newtonsoft.Json.Linq;
 
 namespace FactorioConsoleManagerApp
 {
@@ -11,9 +12,8 @@ namespace FactorioConsoleManagerApp
     {
         static void Main(string[] args)
         {
-            dynamic config = JsonConvert.DeserializeObject(File.ReadAllText("appsettings.json"));
-            
-            Console.WriteLine(config.paths.gamedata.dirs.mods);
+            IDictionary<string, JObject> config = JsonConvert.DeserializeObject<Dictionary<string, JObject>>(File.ReadAllText("appsettings.json"));
+            Console.WriteLine(config["gamedata"]["paths"]["dirs"]["mods"]);
         }
     }
 }
