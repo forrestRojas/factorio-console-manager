@@ -6,7 +6,7 @@ namespace FactorioConsoleManagerApp.CLI
 {
     public class MainMenuCLI : MasterCLI
     {
-        protected override void Run()
+        public override void Run()
         {
             throw new NotImplementedException();
         }

@@ -9,6 +9,6 @@ namespace FactorioConsoleManagerApp.CLI
         /// <summary>
         /// Runs the CLI
         /// </summary>
-        protected abstract void Run();
+        public abstract void Run();
     }
 }

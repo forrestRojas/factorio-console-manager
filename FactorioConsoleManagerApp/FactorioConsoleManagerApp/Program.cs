@@ -13,7 +13,10 @@ namespace FactorioConsoleManagerApp
         static void Main(string[] args)
         {
             IDictionary<string, JObject> config = JsonConvert.DeserializeObject<Dictionary<string, JObject>>(File.ReadAllText("appsettings.json"));
-            Console.WriteLine(config["gamedata"]["paths"]["dirs"]["mods"]);
+            //Console.WriteLine(config["gamedata"]["paths"]["dirs"]["mods"]);
+            MainMenuCLI mainMenu = new MainMenuCLI();
+            mainMenu.Run();
+
         }
     }
 }
