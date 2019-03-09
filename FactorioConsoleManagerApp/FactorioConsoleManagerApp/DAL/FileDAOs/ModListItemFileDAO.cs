@@ -6,5 +6,6 @@ namespace FactorioConsoleManagerApp.DAL
 {
     public class ModListItemFileDAO
     {
+
     }
 }

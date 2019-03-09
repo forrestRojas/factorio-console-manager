@@ -4,7 +4,11 @@ using System.Text;
 
 namespace FactorioConsoleManagerApp.CLI
 {
-    public class MainMenuCLI
+    public class MainMenuCLI : MasterCLI
     {
+        protected override void Run()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
