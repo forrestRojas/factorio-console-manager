@@ -5,8 +5,10 @@ using System.Text;
 
 namespace FactorioConsoleManagerApp.DAL
 {
-    public interface IModListDAO
+    public interface IModDAO
     {
-        IDictionary<string, ModList> GetModLists();
+        Mod GetModData();
+
+        void SaveModData();
     }
 }
