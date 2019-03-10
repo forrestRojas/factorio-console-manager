@@ -7,8 +7,8 @@ namespace FactorioConsoleManagerApp.DAL
 {
     public interface IModListDAO
     {
-        IDictionary<string, ModList> GetAllModLists();
+        IDictionary<string, ModList> GetModLists();
 
-        void SaveAllModLists();
+        void SaveModLists();
     }
 }

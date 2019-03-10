@@ -8,7 +8,7 @@ namespace FactorioConsoleManagerApp.CLI
     {
         public override void Run()
         {
-            throw new NotImplementedException();
+            ;
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FactorioConsoleManagerApp.CLI
 {
-    public class HelperCLI
+    public static class HelperCLI
     {
         private const int returnToInputLine = 2;
 

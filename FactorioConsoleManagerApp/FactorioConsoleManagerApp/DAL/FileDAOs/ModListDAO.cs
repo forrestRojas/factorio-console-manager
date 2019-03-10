@@ -7,24 +7,31 @@ namespace FactorioConsoleManagerApp.DAL
 {
     public class ModListDAO :IModListDAO
     {
-        private readonly string filepath;
+        private readonly string appdataFilePath;
+
+        private readonly string gamedataFilePath;
 
         private class Root
         {
             public List<ModListItem> Mods { get; set; }
         }
 
-        public ModListDAO(string filepath)
+        public ModListDAO(string appdataFilePath, string gamedataFilePath)
         {
-            this.filepath = filepath;
+            this.appdataFilePath = appdataFilePath;
+            this.gamedataFilePath = gamedataFilePath;
         }
 
-        public IDictionary<string, ModList> GetAllModLists()
+        /// <summary>
+        /// Gets the mod lists from the 
+        /// </summary>
+        /// <returns></returns>
+        public IDictionary<string, ModList> GetModLists()
         {
             SortedDictionary<string, ModList>
         }
 
-        public void SaveAllModLists()
+        public void SaveModLists()
         {
             throw new NotImplementedException();
         }
