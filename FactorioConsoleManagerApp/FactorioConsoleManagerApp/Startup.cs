@@ -32,4 +32,5 @@ namespace FactorioConsoleManagerApp
             //do the actual work here
             //var bar = serviceProvider.GetService<IBarService>();
         }
+    }
 }

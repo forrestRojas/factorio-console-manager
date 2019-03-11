@@ -28,7 +28,7 @@ namespace FactorioConsoleManagerApp.DAL
         /// <returns></returns>
         public IDictionary<string, ModList> GetModLists()
         {
-            SortedDictionary<string, ModList>
+            return new SortedDictionary<string, ModList>();
         }
 
         public void SaveModLists()
