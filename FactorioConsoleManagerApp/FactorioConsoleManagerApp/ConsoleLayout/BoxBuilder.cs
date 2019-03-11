@@ -1,73 +1,105 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+//using System.Linq;
 
 namespace FactorioConsoleManagerApp.ConsoleLayout
 {
     public class BoxBuilder
     {
-        private Dictionary<string, char[]> boxTypes = new Dictionary<string, char[]>
+        private static Dictionary<string, char[]> BoxTypes
         {
-            {"light", new char[] { '┌', '┐', '└', '┘', '─', '│' } },
-            {"heavy", new char[] { '┏', '┓', '┗', '┛', '━', '┃' } },
-            {"double", new char[] { '╔', '╗', '╚', '╝', '═', '║' } },
-            {"round", new char[] { '╭', '╮', '╰', '╯', '─', '│', } }
-        };
-
-        ///// <summary>
-        ///// Creates a box using a the standerd light boreder.
-        ///// </summary>
-        ///// <param name="boxWidth"></param>
-        ///// <param name="boxHeight"></param>
-        //public BoxBuilder(int boxWidth, int boxHeight)
-        //{
-        //    this.boxWidth = boxWidth;
-        //    this.boxHeight = boxHeight;
-        //    this.boxType = "light";
-        //}
-
-        ///// <summary>
-        ///// Creates a box using a defined boxType from the dictionary.
-        ///// </summary>
-        ///// <param name="boxWidth">The width of the box in chars.</param>
-        ///// <param name="boxHeight">The height of the box in lines.</param>
-        ///// <param name="boxType">The defined boxType.</param>
-        //public BoxBuilder(int boxWidth, int boxHeight, string boxType)
-        //{
-        //    this.boxWidth = boxWidth;
-        //    this.boxHeight = boxHeight;
-        //    this.boxType = boxType.ToLower();
-        //}
-
-        /// <summary>
-        /// Adds to the boxbuilder dictionary.
-        /// An array bigger then 6 chars will modify the right then the bottom boreders.
-        /// </summary>
-        /// <param name="boxType">the name of the box type</param>
-        /// <param name="boxChars">the chars used for the box. {'topright','topleft', 'bottomright', bottomleft, 'left/right', 'top/bottom'}</param>
-        public void AddBoxType(string boxType, char[] boxChars)
-        {
-            if (boxChars.Length < 6)
+            get
             {
-                throw new ArgumentException(string.Format("Array length: {0} is not greater than or equal to 6", boxChars.Length), "boxChars");
+                return new Dictionary<string, char[]>
+                {
+                    {"light", new char[] { '┌', '┐', '└', '┘', '─', '│' } },
+                    {"heavy", new char[] { '┏', '┓', '┗', '┛', '━', '┃' } },
+                    {"double", new char[] { '╔', '╗', '╚', '╝', '═', '║' } },
+                    {"round", new char[] { '╭', '╮', '╰', '╯', '─', '│' } }
+                };
             }
-            if (boxChars.Length > 8)
-            {
-                throw new ArgumentException(string.Format("Array length: {0} is not less than or equal to 8", boxChars.Length), "boxChars");
-            }
-            this.boxTypes.Add(boxType, boxChars);
         }
 
-        //string topBox = '╔' + PadSides("", boxWidth, '═') + '╗';
-        //string midBox = '║' + PadSides("", boxWidth) + '║';
-        //string midText = '║' + PadSides(title, boxWidth) + '║';
-        //string bottomBox = '╚' + PadSides("", boxWidth, '═') + '╝';
-        //string[] boxbulider = new string[] { topBox, midBox, midText, midBox, bottomBox };
+        public BoxBuilder()
+        {
+        }
 
-        //public 
+        public string[] Build(string message, int boxWidth, int boxHeight, string boxType)
+        {
+            const int topLeft = 0;
+            const int topRight = 1;
+            const int bottomLeft = 2;
+            const int bottomRight = 3;
+            const int horizontal = 4;
+            const int vertical = 5;
 
+            int bottomHorizontal = 6;
+            int rightVertical = 7;
 
-        public static string PadSides(string str, int totalWidth, char paddingChar = ' ')
+            char[] boxChars = BoxTypes[boxType.ToLower()];
+
+            if (boxChars.GetUpperBound(0) < bottomHorizontal)
+            {
+                bottomHorizontal = horizontal;
+            }
+            if (boxChars.GetUpperBound(0) < rightVertical)
+            {
+                rightVertical = vertical;
+            }
+
+            // TODO Pull these components out into a model
+            // Builds the component strings for each line 
+            string topBox = boxChars[topLeft] + PadSides("", boxWidth, boxChars[horizontal]) + boxChars[topRight];
+            string midBox = boxChars[vertical] + PadSides("", boxWidth) + boxChars[rightVertical];
+            string midText = boxChars[vertical] + PadSides(message, boxWidth) + boxChars[rightVertical];
+            string bottomBox = boxChars[bottomLeft] + PadSides("", boxWidth, boxChars[bottomHorizontal]) + boxChars[bottomRight];
+
+            // Template for the assembler to create a box with
+            string[] boxTemplete = new string[4] { topBox, midBox, midText, bottomBox };
+
+            string[] boxAssembly = BuildBoxAssembly(boxHeight, boxTemplete);
+
+            return boxAssembly;
+        }
+
+        private static string[] BuildBoxAssembly(int boxHeight, string[] boxTemplete)
+        {
+            // top       // top      // top      // top      // top
+            // mid       // mid      // mid      // text     // bottom
+            // mid       // text     // text     // bottom
+            // text      // mid      // bottom
+            // mid       // bottom
+            // bottom
+
+            const int topbox = 0;
+            const int midbox = 1;
+            const int midtext = 2;
+            const int bottombox = 3;
+
+            // RUN a Loop to build the box
+            bool isTextAdded = false;
+            bool isText = false;
+            List<string> boxAssembly = new List<string>();
+            boxAssembly.Add(boxTemplete[topbox]);
+            for (int i = 0; i < boxHeight - 2; i++)
+            {
+                isText = (i + 1) > ((boxHeight - 2) / 2.0);
+                if (isText && !isTextAdded)
+                {
+                    boxAssembly.Add(boxTemplete[midtext]);
+                    isTextAdded = true;
+                }
+                else
+                {
+                    boxAssembly.Add(boxTemplete[midbox]);
+                }
+            }
+            boxAssembly.Add(boxTemplete[bottombox]);
+
+            return boxAssembly.ToArray();
+        }
+
+        private static string PadSides(string str, int totalWidth, char paddingChar = ' ')
         {
             int padding = totalWidth - str.Length;
             int padLeft = padding / 2 + str.Length;
@@ -75,26 +107,3 @@ namespace FactorioConsoleManagerApp.ConsoleLayout
         }
     }
 }
-
-/*
- *  
-public static readonly char[][] boxDrawingChars =
-{
-    new char[] { '─', '━', '│', '┃', '┄', '┅', '┆', '┇', '┈', '┉', '┊', '┋', '┌', '┍', '┎', '┏', },
-    new char[] { '┐', '┑', '┒', '┓', '└', '┕', '┖', '┗', '┘', '┙', '┚', '┛', '├', '┝', '┞', '┟', },
-    new char[] { '┠', '┡', '┢', '┣', '┤', '┥', '┦', '┧', '┨', '┩', '┪', '┫', '┬', '┭', '┮', '┯', },
-    new char[] { '┰', '┱', '┲', '┳', '┴', '┵', '┶', '┷', '┸', '┹', '┺', '┻', '┼', '┽', '┾', '┿', },
-    new char[] { '╀', '╁', '╂', '╃', '╄', '╅', '╆', '╇', '╈', '╉', '╊', '╋', '╌', '╍', '╎', '╏', },
-    new char[] { '═', '║', '╒', '╓', '╔', '╕', '╖', '╗', '╘', '╙', '╚', '╛', '╜', '╝', '╞', '╟', },
-    new char[] { '╠', '╡', '╢', '╣', '╤', '╥', '╦', '╧', '╨', '╩', '╪', '╫', '╬', '╭', '╮', '╯', },
-    new char[] { '╰', '╱', '╲', '╳', '╴', '╵', '╶', '╷', '╸', '╹', '╺', '╻', '╼', '╽', '╾', '╿', }
-};
-
-public static readonly char[][] blockElements =
-{
-    new char[] { '▀', '▁', '▂', '▃', '▄', '▅', '▆', '▇', '█', '▉', '▊', '▋', '▌', '▍', '▎', '▏' },
-
-    new char[] { '▐', '░', '▒', '▓', '▔', '▕', '▖', '▗', '▘', '▙', '▚', '▛', '▜', '▝',	 '▞', '▟' }
-};
-*
-*/

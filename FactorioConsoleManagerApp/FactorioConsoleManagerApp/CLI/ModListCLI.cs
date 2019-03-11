@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FactorioConsoleManagerApp.CLI
 {
-    public class ModListMangerCLI : MasterCLI
+    public class ModListCLI : MasterCLI
     {
         public override void Run()
         {
