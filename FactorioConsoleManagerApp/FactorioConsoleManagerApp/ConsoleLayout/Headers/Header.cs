@@ -23,28 +23,25 @@ namespace FactorioConsoleManagerApp.ConsoleLayout.Headers
 
         public static void Title(string message, int boxWidth, int boxHeight, string boxType, string color)
         {
-            const int spacing = 3;
+            const int sizeAdjust = 1;
             string bgcolor = color;
-            // Box Builder
-            BoxBuilder boxBuilder = new BoxBuilder();
-            string[] boxAssembly = boxBuilder.Build(message, boxWidth, boxHeight, boxType);
+
 
             Console.Clear();
             // Set window size
-            Console.SetWindowSize(boxWidth + spacing, Console.WindowHeight);
-            Console.SetBufferSize(boxWidth + spacing, Console.BufferHeight);
+            Console.SetWindowSize(boxWidth + sizeAdjust, Console.WindowHeight);
+            Console.SetBufferSize(boxWidth + sizeAdjust, Console.BufferHeight);
             // Set Color
             Console.ForegroundColor = ConsoleColor.White;
             Console.BackgroundColor = ConsoleColor.DarkBlue;
-            // Write to console
-            WriteHeaderToConsole(boxAssembly);
-            Console.ResetColor();
-        }
+            
+            // Box Builder
+            BoxBuilder boxBuilder = new BoxBuilder();
+            string title = boxBuilder.Build(message, boxWidth, boxHeight, boxType);
 
-        private static void WriteHeaderToConsole(string[] boxAssembly)
-        {
-            StringBuilder box = new StringBuilder().AppendJoin('\n', boxAssembly);
-            Console.WriteLine(box);
+            // Write to console
+            Console.WriteLine(title);
+            Console.ResetColor();
         }
 
         public static string PadSides(string str, int totalWidth, char paddingChar = ' ')

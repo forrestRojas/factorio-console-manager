@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-//using System.Linq;
+﻿using System.Collections.Generic;
+using System.Text;
 
 namespace FactorioConsoleManagerApp.ConsoleLayout
 {
@@ -24,7 +23,7 @@ namespace FactorioConsoleManagerApp.ConsoleLayout
         {
         }
 
-        public string[] Build(string message, int boxWidth, int boxHeight, string boxType)
+        public string Build(string message, int boxWidth, int boxHeight, string boxType)
         {
             const int topLeft = 0;
             const int topRight = 1;
@@ -35,6 +34,8 @@ namespace FactorioConsoleManagerApp.ConsoleLayout
 
             int bottomHorizontal = 6;
             int rightVertical = 7;
+
+            int boxSpaceing = boxWidth - 2;
 
             char[] boxChars = BoxTypes[boxType.ToLower()];
 
@@ -49,20 +50,27 @@ namespace FactorioConsoleManagerApp.ConsoleLayout
 
             // TODO Pull these components out into a model
             // Builds the component strings for each line 
-            string topBox = boxChars[topLeft] + PadSides("", boxWidth, boxChars[horizontal]) + boxChars[topRight];
-            string midBox = boxChars[vertical] + PadSides("", boxWidth) + boxChars[rightVertical];
-            string midText = boxChars[vertical] + PadSides(message, boxWidth) + boxChars[rightVertical];
-            string bottomBox = boxChars[bottomLeft] + PadSides("", boxWidth, boxChars[bottomHorizontal]) + boxChars[bottomRight];
+            string topBox = boxChars[topLeft] + PadSides("", boxSpaceing, boxChars[horizontal]) + boxChars[topRight];
+            string midBox = boxChars[vertical] + PadSides("", boxSpaceing) + boxChars[rightVertical];
+            string midText = boxChars[vertical] + PadSides(message, boxSpaceing) + boxChars[rightVertical];
+            string bottomBox = boxChars[bottomLeft] + PadSides("", boxSpaceing, boxChars[bottomHorizontal]) + boxChars[bottomRight];
 
             // Template for the assembler to create a box with
             string[] boxTemplete = new string[4] { topBox, midBox, midText, bottomBox };
 
-            string[] boxAssembly = BuildBoxAssembly(boxHeight, boxTemplete);
+            string box = AssembleBox(boxHeight, boxTemplete);
 
-            return boxAssembly;
+            return box;
         }
 
-        private static string[] BuildBoxAssembly(int boxHeight, string[] boxTemplete)
+
+        /// <summary>
+        /// Returns a string containg the fully built box.
+        /// </summary>
+        /// <param name="boxHeight"></param>
+        /// <param name="boxTemplete"></param>
+        /// <returns></returns>
+        private static string AssembleBox(int boxHeight, string[] boxTemplete)
         {
             // top       // top      // top      // top      // top
             // mid       // mid      // mid      // text     // bottom
@@ -77,6 +85,43 @@ namespace FactorioConsoleManagerApp.ConsoleLayout
             const int bottombox = 3;
 
             // RUN a Loop to build the box
+
+            bool isTextAdded = false;
+            bool isText = false;
+            StringBuilder boxAssembly = new StringBuilder();
+            boxAssembly.AppendLine(boxTemplete[topbox]);
+            for (int i = 0; i < boxHeight - 2; i++)
+            {
+                isText = (i + 1) > ((boxHeight - 2) / 2.0);
+                if (isText && !isTextAdded)
+                {
+                    boxAssembly.AppendLine(boxTemplete[midtext]);
+                    isTextAdded = true;
+                }
+                else
+                {
+                    boxAssembly.AppendLine(boxTemplete[midbox]);
+                }
+            }
+            boxAssembly.Append(boxTemplete[bottombox]);
+            return boxAssembly.ToString();
+        }
+
+        /// <summary>
+        /// Returns a list of box lines.
+        /// </summary>
+        /// <param name="boxHeight"></param>
+        /// <param name="boxTemplete"></param>
+        /// <returns>A Box Assembly</returns>
+        public List<string> BuildBoxAssembly(int boxHeight, string[] boxTemplete)
+        {
+            const int topbox = 0;
+            const int midbox = 1;
+            const int midtext = 2;
+            const int bottombox = 3;
+
+            // RUN a Loop to build the box
+
             bool isTextAdded = false;
             bool isText = false;
             List<string> boxAssembly = new List<string>();
@@ -95,8 +140,7 @@ namespace FactorioConsoleManagerApp.ConsoleLayout
                 }
             }
             boxAssembly.Add(boxTemplete[bottombox]);
-
-            return boxAssembly.ToArray();
+            return boxAssembly;
         }
 
         private static string PadSides(string str, int totalWidth, char paddingChar = ' ')
