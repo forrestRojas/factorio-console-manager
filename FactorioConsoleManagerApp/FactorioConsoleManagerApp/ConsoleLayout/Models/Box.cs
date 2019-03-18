@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 
 namespace FactorioConsoleManagerApp.ConsoleLayout.Models
@@ -17,5 +18,14 @@ namespace FactorioConsoleManagerApp.ConsoleLayout.Models
 
         public string Message { get; set; }
 
+        public ConsoleColor BackgroundColor { get; set; }
+
+        public ConsoleColor ForgroundColor { get; set; }
+
+        public Box()
+        {
+            this.ForgroundColor = ConsoleColor.White;
+            this.BackgroundColor = ConsoleColor.DarkBlue;
+        }
     }
 }
