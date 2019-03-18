@@ -15,7 +15,7 @@ namespace FactorioConsoleManagerApp.CLI
             while (true)
             {
                 Console.Clear();
-                Header.Title("Mod Manager", titleWidth, titleHeight, "double", "blue");
+                new Header().Title("Mod Manager", titleWidth, titleHeight, "double");
                 Console.WriteLine();
                 Console.WriteLine("1 - Manage Mod Lists");
                 Console.WriteLine("2 - Tweek Mod Files");
@@ -23,6 +23,8 @@ namespace FactorioConsoleManagerApp.CLI
                 Console.WriteLine("Q - Quit");
 
                 string userInput = HelperCLI.GetString("Choose One: > ");
+
+
 
                 switch (userInput.ToLower())
                 {

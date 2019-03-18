@@ -16,7 +16,7 @@ namespace FactorioConsoleManagerApp.CLI
             while (true)
             {
                 Console.Clear();
-                Header.Title("Welcome to the Factorio Console Manager!", titleWidth, titleHeight, "double", "blue");
+                new Header().Title("Welcome to the Factorio Console Manager!", titleWidth, titleHeight, "double");
                 Console.WriteLine();
                 Console.WriteLine("1 - Mod Manager");
                 Console.WriteLine("2 - Ratio Calculator");
