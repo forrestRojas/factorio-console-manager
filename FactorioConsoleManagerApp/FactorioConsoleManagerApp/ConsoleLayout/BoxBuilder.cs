@@ -58,7 +58,7 @@ namespace FactorioConsoleManagerApp.ConsoleLayout
             // Template for the assembler to create a box with
             string[] boxTemplete = new string[4] { topBox, midBox, midText, bottomBox };
 
-            string box = AssembleBox(boxHeight, boxTemplete);
+            string box = AssembleBox(boxHeight, boxWidth, boxTemplete);
 
             return box;
         }
@@ -70,8 +70,9 @@ namespace FactorioConsoleManagerApp.ConsoleLayout
         /// <param name="boxHeight"></param>
         /// <param name="boxTemplete"></param>
         /// <returns></returns>
-        private static string AssembleBox(int boxHeight, string[] boxTemplete)
+        private static string AssembleBox(int boxHeight, int boxWidth, string[] boxTemplete)
         {
+            
             // top       // top      // top      // top      // top
             // mid       // mid      // mid      // text     // bottom
             // mid       // text     // text     // bottom
@@ -84,16 +85,19 @@ namespace FactorioConsoleManagerApp.ConsoleLayout
             const int midtext = 2;
             const int bottombox = 3;
 
-            // RUN a Loop to build the box
+            const int topAndBottom = 2;
 
+            int stringBuilderSize = boxWidth * boxHeight + ((boxHeight - 1) * 2);
+
+            // RUN a Loop to build the box
             bool isTextAdded = false;
-            bool isText = false;
-            StringBuilder boxAssembly = new StringBuilder();
+            bool atTextLine = false;
+            StringBuilder boxAssembly = new StringBuilder(stringBuilderSize);
             boxAssembly.AppendLine(boxTemplete[topbox]);
-            for (int i = 0; i < boxHeight - 2; i++)
+            for (int i = 0; i < boxHeight - topAndBottom; i++)
             {
-                isText = (i + 1) > ((boxHeight - 2) / 2.0);
-                if (isText && !isTextAdded)
+                atTextLine = (i + 1) > ((boxHeight - topAndBottom) / 2.0);
+                if (atTextLine && !isTextAdded)
                 {
                     boxAssembly.AppendLine(boxTemplete[midtext]);
                     isTextAdded = true;
@@ -119,17 +123,18 @@ namespace FactorioConsoleManagerApp.ConsoleLayout
             const int midbox = 1;
             const int midtext = 2;
             const int bottombox = 3;
+            const int topAndBottom = 2;
 
             // RUN a Loop to build the box
 
             bool isTextAdded = false;
-            bool isText = false;
+            bool atTextLine = false;
             List<string> boxAssembly = new List<string>();
             boxAssembly.Add(boxTemplete[topbox]);
-            for (int i = 0; i < boxHeight - 2; i++)
+            for (int i = 0; i < boxHeight - topAndBottom; i++)
             {
-                isText = (i + 1) > ((boxHeight - 2) / 2.0);
-                if (isText && !isTextAdded)
+                atTextLine = (i + 1) > ((boxHeight - topAndBottom) / 2.0);
+                if (atTextLine && !isTextAdded)
                 {
                     boxAssembly.Add(boxTemplete[midtext]);
                     isTextAdded = true;
