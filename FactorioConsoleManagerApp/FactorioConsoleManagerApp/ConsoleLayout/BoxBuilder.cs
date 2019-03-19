@@ -5,6 +5,9 @@ namespace FactorioConsoleManagerApp.ConsoleLayout
 {
     public class BoxBuilder
     {
+        /// <summary>
+        /// A Dictionary of premade boxTypes
+        /// </summary>
         private static Dictionary<string, char[]> BoxTypes
         {
             get
@@ -19,10 +22,14 @@ namespace FactorioConsoleManagerApp.ConsoleLayout
             }
         }
 
-        public BoxBuilder()
-        {
-        }
-
+        /// <summary>
+        /// Builds the box string
+        /// </summary>
+        /// <param name="message">the Message to have the box display</param>
+        /// <param name="boxWidth">The number of charaters wide the box is.</param>
+        /// <param name="boxHeight">The number of Line high the box is.</param>
+        /// <param name="boxType">The Box's border type, specifed by a dictionary key</param>
+        /// <returns>A box string</returns>
         public string Build(string message, int boxWidth, int boxHeight, string boxType)
         {
             const int topLeft = 0;
@@ -67,9 +74,9 @@ namespace FactorioConsoleManagerApp.ConsoleLayout
         /// <summary>
         /// Returns a string containg the fully built box.
         /// </summary>
-        /// <param name="boxHeight"></param>
-        /// <param name="boxTemplete"></param>
-        /// <returns></returns>
+        /// <param name="boxHeight">The number of Line high the box is.</param>
+        /// <param name="boxTemplete">A string Array containg the templete components</param>
+        /// <returns>A box string</returns>
         private static string AssembleBox(int boxHeight, int boxWidth, string[] boxTemplete)
         {
             
@@ -114,8 +121,8 @@ namespace FactorioConsoleManagerApp.ConsoleLayout
         /// <summary>
         /// Returns a list of box lines.
         /// </summary>
-        /// <param name="boxHeight"></param>
-        /// <param name="boxTemplete"></param>
+        /// <param name="boxHeight">The number of Line high the box is.</param>
+        /// <param name="boxTemplete">A string Array containg the templete components</param>
         /// <returns>A Box Assembly</returns>
         public List<string> BuildBoxAssembly(int boxHeight, string[] boxTemplete)
         {
@@ -148,6 +155,13 @@ namespace FactorioConsoleManagerApp.ConsoleLayout
             return boxAssembly;
         }
 
+        /// <summary>
+        /// Pads Both sides of a string Evenly.
+        /// </summary>
+        /// <param name="str">the string to be padded</param>
+        /// <param name="totalWidth">the total number of charaters to pad by.</param>
+        /// <param name="paddingChar">A leader char</param>
+        /// <returns>A padded string.</returns>
         private static string PadSides(string str, int totalWidth, char paddingChar = ' ')
         {
             int padding = totalWidth - str.Length;
