@@ -1,12 +1,22 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Schema;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace FactorioConsoleManagerApp.Models
 {
+    /// <summary>
+    /// Represents a ModList Item
+    /// </summary>
     public class ModListItem
     {   
+        /// <summary>
+        /// Gets the schema for the mod List item model.
+        /// </summary>
+        [JsonIgnore]
+        public JSchema schema { get; }
+
         /// <summary>
         /// The mod data for the item.
         /// </summary>
