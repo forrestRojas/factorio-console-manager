@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Data;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Schema;
 using System.Text;
 using System.Linq;
 using Newtonsoft.Json.Converters;
@@ -71,6 +72,10 @@ namespace FactorioConsoleManagerApp.DAL
         /// <returns>IDctionaray of ModLists</returns>
         private IDictionary<string, ModList> GetModLists(string filePath)
         {
+            Action<Exception> errorHandler = (ex) => {
+                // write to a log, whatever...
+                // TODO LOG exception GetModLists methoed then pass up the chain
+            };
             //IDictionary<list name, IDictionary<mod name, Mod>>
             SortedDictionary<string, ModList> modLists = new SortedDictionary<string, ModList>();
             try
@@ -83,6 +88,8 @@ namespace FactorioConsoleManagerApp.DAL
                     {
                         json.Append(sr.ReadLine());
                     }
+                    // TODO Vaildate json Scheme to work with dataSets THROW error if vaildation fails
+                    json.VaidataScheme();
                     jsonData = JsonConvert.DeserializeObject<DataSet>(json.ToString());
                 }
 
@@ -92,11 +99,8 @@ namespace FactorioConsoleManagerApp.DAL
                     modLists.Add(modList.Name, modList);
                 }
             }
-            catch (IOException)
-            {
-                // TODO create LOG for GetModLists methoed
-                throw;
-            }
+            catch (IOException ex) { errorHandler(ex); throw; }
+            catch (JsonException ex) { errorHandler(ex); throw; }
             return modLists;
         }
 
