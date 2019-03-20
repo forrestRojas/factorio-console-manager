@@ -13,37 +13,90 @@ namespace FactorioConsoleManagerApp.DAL
     public class ModListDAO : IModListDAO
     {
         private readonly string appdataFilePath;
-
         private readonly string gamedataFilePath;
 
+        /// <summary>
+        /// Creates a ModListDAO.
+        /// </summary>
+        /// <param name="appdataFilePath">The application's ModList file path</param>
+        /// <param name="gamedataFilePath">The Game's ModList File Path</param>
         public ModListDAO(string appdataFilePath, string gamedataFilePath)
         {
             this.appdataFilePath = appdataFilePath;
             this.gamedataFilePath = gamedataFilePath;
         }
 
-        public IDictionary<string, ModList> GetModLists(string filePath)
+        /// <summary>
+        /// Gets all the ModLists saved in the application's data.
+        /// </summary>
+        /// <returns></returns>
+        public IDictionary<string, ModList> GetModListsFormApp()
+        {
+            return this.GetModLists(appdataFilePath);
+        }
+
+        /// <summary>
+        /// Gets the Game's ModList from the mod-list json file.
+        /// </summary>
+        /// <returns>The game's ModList</returns>
+        public ModList GetModListFormGame()
+        {
+            IDictionary<string, ModList> modLists = this.GetModLists(gamedataFilePath);
+            return modLists["mods"];
+
+        }
+
+        /// <summary>
+        /// Saves the ModLists to the application list file
+        /// </summary>
+        /// <param name="modLists">Dictionary of ModLists to save</param>
+        public void SaveModLists(IDictionary<string, ModList> modLists)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Write/Overwrites the ModList to the game mod-list file.
+        /// </summary>
+        /// <param name="modList">The list to use</param>
+        public void WirteModListToGameModsFolder(ModList modList)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Gets an IDictionary of Modlist from a specifed json <see cref="DataSet"/> file accessed by the List Name.
+        /// </summary>
+        /// <param name="filePath">The File path to the json file</param>
+        /// <returns>IDctionaray of ModLists</returns>
+        private IDictionary<string, ModList> GetModLists(string filePath)
         {
             //IDictionary<list name, IDictionary<mod name, Mod>>
             SortedDictionary<string, ModList> modLists = new SortedDictionary<string, ModList>();
-            DataSet jsonData = new DataSet();
-
-            using (StreamReader sr = new StreamReader(appdataFilePath))
+            try
             {
-                StringBuilder json = new StringBuilder();
-                while (!sr.EndOfStream)
+                DataSet jsonData = new DataSet();
+                using (StreamReader sr = new StreamReader(appdataFilePath))
                 {
-                    json.Append(sr.ReadLine());
+                    StringBuilder json = new StringBuilder();
+                    while (!sr.EndOfStream)
+                    {
+                        json.Append(sr.ReadLine());
+                    }
+                    jsonData = JsonConvert.DeserializeObject<DataSet>(json.ToString());
                 }
-                jsonData = JsonConvert.DeserializeObject<DataSet>(json.ToString());
-            }
 
-            foreach (DataTable table in jsonData.Tables)
-            {                    
-                ModList modList = ConvertTableToModList(table);
-                modLists.Add(modList.Name, modList);
+                foreach (DataTable table in jsonData.Tables)
+                {                    
+                    ModList modList = ConvertTableToModList(table);
+                    modLists.Add(modList.Name, modList);
+                }
             }
-
+            catch (IOException)
+            {
+                // TODO create LOG for GetModLists methoed
+                throw;
+            }
             return modLists;
         }
 
@@ -66,11 +119,6 @@ namespace FactorioConsoleManagerApp.DAL
             }
 
             return modList;
-        }
-
-        public void SaveModLists()
-        {
-            throw new NotImplementedException();
         }
     }
 

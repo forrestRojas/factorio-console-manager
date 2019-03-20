@@ -7,8 +7,28 @@ namespace FactorioConsoleManagerApp.DAL
 {
     public interface IModListDAO
     {
-        IDictionary<string, ModList> GetModLists(string filePath);
+        /// <summary>
+        /// Gets a IDictionary of ModLists.
+        /// </summary>
+        /// <returns></returns>
+        IDictionary<string, ModList> GetModListsFormApp();
 
-        void SaveModLists();
+        /// <summary>
+        /// Gets the ModList from the game.
+        /// </summary>
+        /// <returns></returns>
+        ModList GetModListFormGame();
+
+        /// <summary>
+        /// Saves the ModLists to the app
+        /// </summary>
+        /// <param name="modLists"></param>
+        void SaveModLists(IDictionary<string, ModList> modLists);
+
+        /// <summary>
+        /// Saves the Mod List to the game.
+        /// </summary>
+        /// <param name="modList"></param>
+        void WirteModListToGameModsFolder(ModList modList);
     }
 }
