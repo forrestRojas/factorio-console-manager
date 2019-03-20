@@ -11,7 +11,10 @@ using Newtonsoft.Json.Converters;
 
 namespace FactorioConsoleManagerApp.DAL
 {
-    public class ModListDAO : IModListDAO
+    /// <summary>
+    /// Represents a ModListJsonDAO that implments an IModListDAO.
+    /// </summary>
+    public class ModListJsonDAO : IModListDAO
     {
         private readonly string appdataFilePath;
         private readonly string gamedataFilePath;
@@ -21,7 +24,7 @@ namespace FactorioConsoleManagerApp.DAL
         /// </summary>
         /// <param name="appdataFilePath">The application's ModList file path</param>
         /// <param name="gamedataFilePath">The Game's ModList File Path</param>
-        public ModListDAO(string appdataFilePath, string gamedataFilePath)
+        public ModListJsonDAO(string appdataFilePath, string gamedataFilePath)
         {
             this.appdataFilePath = appdataFilePath;
             this.gamedataFilePath = gamedataFilePath;
@@ -60,7 +63,7 @@ namespace FactorioConsoleManagerApp.DAL
         /// Write/Overwrites the ModList to the game mod-list file.
         /// </summary>
         /// <param name="modList">The list to use</param>
-        public void WirteModListToGameModsFolder(ModList modList)
+        public void WriteModListToGameModsFolder(ModList modList)
         {
             throw new NotImplementedException();
         }
@@ -73,8 +76,7 @@ namespace FactorioConsoleManagerApp.DAL
         private IDictionary<string, ModList> GetModLists(string filePath)
         {
             Action<Exception> ErrorHandler = (ex) => {
-                // write to a log, whatever...
-                // TODO LOG exception GetModLists methoed then pass up the chain
+                // TODO LOG exception GetModLists method then pass up the chain
             };
 
             //IDictionary<list name, IDictionary<mod name, Mod>>
@@ -90,7 +92,7 @@ namespace FactorioConsoleManagerApp.DAL
                         json.Append(sr.ReadLine());
                     }
                     // TODO Vaildate json Scheme to work with dataSets THROW error if vaildation fails
-                    json.VaidataScheme();
+                    //json.VaidataScheme();
                     jsonData = JsonConvert.DeserializeObject<DataSet>(json.ToString());
                 }
 
@@ -108,6 +110,11 @@ namespace FactorioConsoleManagerApp.DAL
             return modLists;
         }
 
+        /// <summary>
+        /// Converts the Table data to a ModList.
+        /// </summary>
+        /// <param name="dataTable">the table of mods assiocated with the list</param>
+        /// <returns>A ModList</returns>
         private ModList ConvertTableToModList(DataTable dataTable)
         {
             ModList modList = new ModList

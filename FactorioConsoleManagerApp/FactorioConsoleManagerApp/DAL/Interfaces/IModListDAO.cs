@@ -5,6 +5,9 @@ using System.Text;
 
 namespace FactorioConsoleManagerApp.DAL
 {
+    /// <summary>
+    /// Reprsents an interface for the ModListDAO.
+    /// </summary>
     public interface IModListDAO
     {
         /// <summary>
@@ -29,6 +32,6 @@ namespace FactorioConsoleManagerApp.DAL
         /// Saves the Mod List to the game.
         /// </summary>
         /// <param name="modList"></param>
-        void WirteModListToGameModsFolder(ModList modList);
+        void WriteModListToGameModsFolder(ModList modList);
     }
 }
