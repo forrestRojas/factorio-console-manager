@@ -72,10 +72,11 @@ namespace FactorioConsoleManagerApp.DAL
         /// <returns>IDctionaray of ModLists</returns>
         private IDictionary<string, ModList> GetModLists(string filePath)
         {
-            Action<Exception> errorHandler = (ex) => {
+            Action<Exception> ErrorHandler = (ex) => {
                 // write to a log, whatever...
                 // TODO LOG exception GetModLists methoed then pass up the chain
             };
+
             //IDictionary<list name, IDictionary<mod name, Mod>>
             SortedDictionary<string, ModList> modLists = new SortedDictionary<string, ModList>();
             try
@@ -99,8 +100,11 @@ namespace FactorioConsoleManagerApp.DAL
                     modLists.Add(modList.Name, modList);
                 }
             }
-            catch (IOException ex) { errorHandler(ex); throw; }
-            catch (JsonException ex) { errorHandler(ex); throw; }
+            catch (FileNotFoundException ex) { ErrorHandler(ex); throw; }
+            catch (FileLoadException ex) { ErrorHandler(ex); throw; }
+            catch (IOException ex) { ErrorHandler(ex); throw; }
+            catch (JsonSerializationException ex) { ErrorHandler(ex); throw; }
+            catch (JsonException ex) { ErrorHandler(ex); throw; }
             return modLists;
         }
 
