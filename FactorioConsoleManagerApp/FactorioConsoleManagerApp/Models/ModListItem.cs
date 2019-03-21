@@ -15,7 +15,7 @@ namespace FactorioConsoleManagerApp.Models
         /// Gets the schema for the mod List item model.
         /// </summary>
         [JsonIgnore]
-        public JSchema schema { get; }
+        public JSchema Schema { get; }
 
         /// <summary>
         /// The mod data for the item.
