@@ -5,11 +5,17 @@ using System.Text;
 
 namespace FactorioConsoleManagerApp.CLI
 {
+    /// <summary>
+    /// Represents a Mod Manager CIL.
+    /// </summary>
     public class ModMangerCLI : MasterCLI
     {
         private const int titleWidth = 50;
         private const int titleHeight = 5;
 
+        /// <summary>
+        /// Runs the ModMenu CLI.
+        /// </summary>
         public override void Run()
         {
             while (true)

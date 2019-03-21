@@ -12,10 +12,16 @@ namespace FactorioConsoleManagerApp.Models
         /// Gets the schema for the mod List model.
         /// </summary>
         [JsonIgnore]
-        public JSchema schema { get; }
+        public JSchema Schema { get; }
 
+        /// <summary>
+        /// The Name of the modlist.
+        /// </summary>
         public string Name { get; set; }
 
+        /// <summary>
+        /// An Idctionary of modlistItems accessed via the mod name.
+        /// </summary>
         public IDictionary<string, ModListItem> ModListItems { get; set; }
     }
 }
