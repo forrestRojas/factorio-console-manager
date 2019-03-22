@@ -26,6 +26,10 @@ namespace FactorioConsoleManagerApp.ConsoleLayout.Models
         {
             this.ForgroundColor = ConsoleColor.White;
             this.BackgroundColor = ConsoleColor.DarkBlue;
+            this.BoxWidth = 0;
+            this.BoxHeight = 0;
+            this.BoxType = "none";
+            this.Message = string.Empty;
         }
     }
 }
