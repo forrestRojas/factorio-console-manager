@@ -2,7 +2,7 @@
 
 namespace FactorioConsoleManagerApp.CLI
 {
-    internal class ModTweekerCLI
+    public class ModTweekerCLI
     {
         public ModTweekerCLI()
         {
