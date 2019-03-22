@@ -5,7 +5,7 @@ namespace FactorioConsoleManagerApp.CLI
     /// <summary>
     /// Represents a ModTweeker Menu.
     /// </summary>
-    public class ModTweekerCLI
+    public class ModTweekerCLI : MainMenuCLI
     {
         /// <summary>
         /// Creates a ModTweekerCLI.
@@ -17,7 +17,7 @@ namespace FactorioConsoleManagerApp.CLI
         /// <summary>
         /// Runs the ModTweekerCLI Menu.
         /// </summary>
-        public void Run()
+        public override void Run()
         {
             throw new NotImplementedException();
         }
