@@ -5,12 +5,17 @@ using System.Text;
 
 namespace FactorioConsoleManagerApp.CLI
 {
+    /// <summary>
+    /// Represents a MainMenuCLI.
+    /// </summary>
     public class MainMenuCLI : MasterCLI
     {
         private const int titleWidth = 50;
         private const int titleHeight = 5;
 
-
+        /// <summary>
+        /// Runs the Main Menu.
+        /// </summary>
         public override void Run()
         {
             while (true)
