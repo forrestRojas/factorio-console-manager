@@ -14,7 +14,9 @@ namespace FactorioConsoleManagerApp.ConsoleLayout.Headers
         /// </summary>
         public BoxBuilder BoxBuilder { get; private set; }
 
-
+        /// <summary>
+        /// Creates a Header.
+        /// </summary>
         public Header()
         {
             this.BoxBuilder = new BoxBuilder();
@@ -22,12 +24,21 @@ namespace FactorioConsoleManagerApp.ConsoleLayout.Headers
             this.BackgroundColor = this.BackgroundColor;
         }
 
-
+        /// <summary>
+        /// Creates a Defualt title head
+        /// </summary>
         public void Title()
         {
             this.Title(this.Message, this.BoxWidth, this.BoxHeight, this.BoxType);
         }
 
+        /// <summary>
+        /// creates a custom title head.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="boxWidth"></param>
+        /// <param name="boxHeight"></param>
+        /// <param name="boxType"></param>
         public void Title(string message, int boxWidth, int boxHeight, string boxType)
         {
             const int sizeAdjust = 1;
