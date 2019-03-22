@@ -6,7 +6,7 @@ namespace FactorioConsoleManagerApp.ConsoleLayout
     /// <summary>
     /// Represents a BoxBuilder.
     /// </summary>
-    public class BoxBuilder
+    public class BoxBuilder 
     {
         /// <summary>
         /// A Dictionary of premade boxTypes
@@ -17,6 +17,7 @@ namespace FactorioConsoleManagerApp.ConsoleLayout
             {
                 return new Dictionary<string, char[]>
                 {
+                    {"none", new char[] { ' ', ' ', ' ', ' ', ' ', ' ' } },
                     {"light", new char[] { '┌', '┐', '└', '┘', '─', '│' } },
                     {"heavy", new char[] { '┏', '┓', '┗', '┛', '━', '┃' } },
                     {"double", new char[] { '╔', '╗', '╚', '╝', '═', '║' } },

@@ -31,7 +31,6 @@ namespace FactorioConsoleManagerApp.CLI
                 string userInput = HelperCLI.GetString("Choose One: > ");
 
 
-
                 switch (userInput.ToLower())
                 {
                     case "1":
