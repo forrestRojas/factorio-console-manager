@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Data;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Schema;
 using System.Text;
 using System.Linq;
 using Newtonsoft.Json.Converters;
@@ -20,7 +19,7 @@ namespace FactorioConsoleManagerApp.DAL
         private readonly string gamedataFilePath;
 
         /// <summary>
-        /// Creates a ModListDAO.
+        /// Creates a ModListJsonDAO.
         /// </summary>
         /// <param name="appdataFilePath">The application's ModList file path</param>
         /// <param name="gamedataFilePath">The Game's ModList File Path</param>
