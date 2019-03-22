@@ -17,15 +17,13 @@ namespace FactorioConsoleManagerApp.ConsoleLayout.Headers
         /// <summary>
         /// Creates a Header.
         /// </summary>
-        public Header()
+        public Header() : base()
         {
             this.BoxBuilder = new BoxBuilder();
-            this.ForgroundColor = this.ForgroundColor;
-            this.BackgroundColor = this.BackgroundColor;
         }
 
         /// <summary>
-        /// Creates a Defualt title head
+        /// Creates a Defualt title head.
         /// </summary>
         public void Title()
         {
