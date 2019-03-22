@@ -7,38 +7,25 @@ using FactorioConsoleManagerApp.ConsoleLayout.Models;
 
 namespace FactorioConsoleManagerApp.ConsoleLayout.Headers
 {
-    public class Header
+    public class Header : Box
     {
         /// <summary>
-        /// Gets or sets the header text.
+        /// Gets or Sets the Boxbulider.
         /// </summary>
-        public string HeaderText { get; set; }
-
-        /// <summary>
-        /// Gets or sets the header box Width (in Chars).
-        /// </summary>
-
         public BoxBuilder BoxBuilder { get; private set; }
-
-        public Box Box { get; private set; }
-
-        public ConsoleColor ForgroundColor { get; set; }
-
-        public ConsoleColor BackgroundColor { get; set; }
 
 
         public Header()
         {
-            this.Box = new Box();
             this.BoxBuilder = new BoxBuilder();
-            this.ForgroundColor = this.Box.ForgroundColor;
-            this.BackgroundColor = this.Box.BackgroundColor;
+            this.ForgroundColor = this.ForgroundColor;
+            this.BackgroundColor = this.BackgroundColor;
         }
 
 
-        public void Title(Box box)
+        public void Title()
         {
-            this.Title(box.Message, box.BoxWidth, box.BoxHeight, box.BoxType);
+            this.Title(this.Message, this.BoxWidth, this.BoxHeight, this.BoxType);
         }
 
         public void Title(string message, int boxWidth, int boxHeight, string boxType)
