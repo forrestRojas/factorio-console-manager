@@ -6,6 +6,9 @@ using System.Text;
 
 namespace FactorioConsoleManagerApp.Models
 {
+    /// <summary>
+    /// Represents a Factorio Mod List.
+    /// </summary>
     public class ModList
     {
         /// <summary>

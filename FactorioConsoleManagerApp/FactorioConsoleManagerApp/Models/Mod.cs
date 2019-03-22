@@ -4,6 +4,9 @@ using System.Text;
 
 namespace FactorioConsoleManagerApp.Models
 {
+    /// <summary>
+    /// Represents a Factorio Mod
+    /// </summary>
     public class Mod
     {
         /// <summary>
