@@ -3,6 +3,9 @@ using System.Text;
 
 namespace FactorioConsoleManagerApp.ConsoleLayout
 {
+    /// <summary>
+    /// Represents a BoxBuilder.
+    /// </summary>
     public class BoxBuilder
     {
         /// <summary>
