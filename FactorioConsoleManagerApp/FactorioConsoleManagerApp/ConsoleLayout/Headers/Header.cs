@@ -68,7 +68,13 @@ namespace FactorioConsoleManagerApp.ConsoleLayout.Headers
             Console.ResetColor();
         }
 
-
+        /// <summary>
+        /// Pads the sides of a string evenly.
+        /// </summary>
+        /// <param name="str">The string to be padded.</param>
+        /// <param name="totalWidth">the total width of the string.</param>
+        /// <param name="paddingChar">A padding char.</param>
+        /// <returns>A padded string.</returns>
         public static string PadSides(string str, int totalWidth, char paddingChar = ' ')
         {
             int padding = totalWidth - str.Length;
