@@ -13,6 +13,7 @@ namespace FactorioConsoleManagerApp
         static void Main(string[] args)
         {
             Console.Title = "Factorio Console Manager";
+            Startup startup = new Startup();
             new MainMenuCLI().Run();
         }
     }

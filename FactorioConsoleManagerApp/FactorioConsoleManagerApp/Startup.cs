@@ -6,6 +6,7 @@ using System.Configuration;
 using Newtonsoft.Json.Converters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using FactorioConsoleManagerApp.DAL;
 
 namespace FactorioConsoleManagerApp
 {
@@ -13,24 +14,37 @@ namespace FactorioConsoleManagerApp
     {
         public Startup()
         {
-            //setup our DI
-            //var serviceProvider = new ServiceCollection()
-            //    .AddLogging()
-            //    .AddSingleton<IFooService, FooService>()
-            //    .AddSingleton<IBarService, BarService>()
-            //    .BuildServiceProvider();
+            Action<Exception> ErrorHandler = (ex) => {
+                // TODO LOG exception GetModLists method then pass up the chain
+            };
 
-            ////configure console logging
-            //serviceProvider
-            //    .GetService<ILoggerFactory>()
-            //    .AddConsole(LogLevel.Debug);
+
+            //setup our configuration
+            try
+            {
+
+            }
+            catch (IOException)
+            {
+
+                throw;
+            }
+
+            //setup our DI
+            IServiceProvider serviceProvider = new ServiceCollection()
+                .AddLogging()
+                .AddSingleton<IModListDAO>(dao => new ModListJsonDAO())
+                .BuildServiceProvider();
+
+            // TODO configure console logging
+
 
             //var logger = serviceProvider.GetService<ILoggerFactory>()
             //    .CreateLogger<Program>();
             //logger.LogDebug("Starting application");
 
-            //do the actual work here
-            //var bar = serviceProvider.GetService<IBarService>();
+            do the actual work here
+            var bar = serviceProvider.GetService<IBarService>();
         }
     }
 }
