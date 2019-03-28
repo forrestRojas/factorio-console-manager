@@ -12,7 +12,7 @@ namespace FactorioConsoleManagerApp.CLI
     /// </summary>
     public class ModListCLI : MasterCLI
     {
-        private const int titleWidth = 50;
+        private const int titleWidth = 100;
         private const int titleHeight = 5;
 
         private readonly IModListDAO modListDAO;
@@ -34,6 +34,7 @@ namespace FactorioConsoleManagerApp.CLI
                 new Header().Title("Mod Lists", titleWidth, titleHeight, "double");
                 Console.WriteLine();
                 // Display modlist and active list
+                this.DisplayModLists();
                 Console.WriteLine("1 - Choose a list");
                 Console.WriteLine("2 - Go Back To Mod Manger Menu");
                 Console.WriteLine("Q - Quit");
@@ -46,7 +47,7 @@ namespace FactorioConsoleManagerApp.CLI
                         break;
 
                     case "2":
-                        break;
+                        return;
 
                     case "q":
                         Environment.Exit(successCode);
@@ -56,6 +57,23 @@ namespace FactorioConsoleManagerApp.CLI
                         break;
                 }
             }
+        }
+
+        private void DisplayModLists()
+        {
+            IDictionary<string, ModList> modLists = this.modListDAO.GetModListsFormApp();
+            ModList activeList = this.modListDAO.GetModListFormGame();
+            string tableHead = "\tModLists\n\r";
+
+            StringBuilder consoleTable = new StringBuilder(tableHead);
+            consoleTable.AppendLine("   ".PadRight(Console.WindowWidth - 6, '-'));
+            foreach (KeyValuePair<string, ModList> kvp in modLists)
+            {
+                string key = kvp.Key;
+                   
+            }
+            Console.WriteLine(consoleTable);
+            //throw new NotImplementedException();
         }
     }
 }
