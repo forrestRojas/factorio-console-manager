@@ -5,6 +5,8 @@ using System.IO;
 using System.Configuration;
 using Newtonsoft.Json.Converters;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.Json;
 using Microsoft.Extensions.Logging;
 using FactorioConsoleManagerApp.DAL;
 
@@ -20,22 +22,26 @@ namespace FactorioConsoleManagerApp
 
 
             //setup our configuration
-            try
-            {
+            // TODO Make the app allow the user to change the folder paths??
 
-            }
-            catch (IOException)
-            {
+            IConfigurationBuilder builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddEnvironmentVariables();
 
-                throw;
-            }
+            IConfiguration configuration = builder.Build();
+
+            AppConfig config = configuration.Get<AppConfig>();
+
+            string userAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + '/';
+            string appListString = userAppData + config.AppData.PathStrings.Dirs.Data;
+
 
             //setup our DI
             IServiceProvider serviceProvider = new ServiceCollection()
                 .AddLogging()
                 .AddSingleton<IModListDAO>(dao => new ModListJsonDAO())
                 .BuildServiceProvider();
-
             // TODO configure console logging
 
 
@@ -43,7 +49,7 @@ namespace FactorioConsoleManagerApp
             //    .CreateLogger<Program>();
             //logger.LogDebug("Starting application");
 
-            do the actual work here
+            //do the actual work here
             var bar = serviceProvider.GetService<IBarService>();
         }
     }
