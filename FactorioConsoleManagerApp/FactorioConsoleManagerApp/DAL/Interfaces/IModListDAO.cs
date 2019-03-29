@@ -14,13 +14,13 @@ namespace FactorioConsoleManagerApp.DAL
         /// Gets a IDictionary of ModLists.
         /// </summary>
         /// <returns>A <see cref="IDictionary{TKey, TValue}"/> of Modlists</returns>
-        IDictionary<string, ModList> GetModListsFormApp();
+        IDictionary<string, ModList> GetModListsFromApp();
 
         /// <summary>
         /// Gets the ModList from the game.
         /// </summary>
         /// <returns>A <see cref="ModList"/>.</returns>
-        ModList GetModListFormGame();
+        ModList GetModListFromGame();
 
         /// <summary>
         /// Saves the ModLists to the app

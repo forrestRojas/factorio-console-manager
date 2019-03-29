@@ -33,7 +33,7 @@ namespace FactorioConsoleManagerApp.DAL
         /// Gets all the ModLists saved in the application's data.
         /// </summary>
         /// <returns></returns>
-        public IDictionary<string, ModList> GetModListsFormApp()
+        public IDictionary<string, ModList> GetModListsFromApp()
         {
             return this.GetModLists(appdataFilePath);
         }
@@ -42,7 +42,7 @@ namespace FactorioConsoleManagerApp.DAL
         /// Gets the Game's ModList from the mod-list json file.
         /// </summary>
         /// <returns>The game's ModList</returns>
-        public ModList GetModListFormGame()
+        public ModList GetModListFromGame()
         {
             IDictionary<string, ModList> modLists = this.GetModLists(gamedataFilePath);
             return modLists["mods"];

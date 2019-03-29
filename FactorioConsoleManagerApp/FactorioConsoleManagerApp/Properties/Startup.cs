@@ -36,10 +36,13 @@ namespace FactorioConsoleManagerApp
 
 
             //setup our DI
-            IServiceProvider serviceProvider = new ServiceCollection()
+            var serviceProvider = new ServiceCollection()
                 .AddLogging()
                 .AddSingleton<IModListDAO>(dao => new ModListJsonDAO(appListFilePath, gameListFilePath))
+                //.AddSingleton<IModListDAO, ModListJsonDAO>(dao => new ModListJsonDAO(appListFilePath, gameListFilePath))
                 .BuildServiceProvider();
+            IModListDAO modListDAO = serviceProvider.GetService<IModListDAO>();
+            var foo = modListDAO.GetModListFromGame();
         }
     }
 }

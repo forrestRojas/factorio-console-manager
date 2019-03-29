@@ -21,14 +21,8 @@ namespace FactorioConsoleManagerApp.CLI
         public override void Run()
         {
             log.Info("Running Mod Manager Menu");
-            while (true)
+            while (!isExit)
             {
-                if(isExit)
-                {
-                    return;
-                }
-
-
                 Console.Clear();
                 new Header().Title("Mod Manager", titleWidth, titleHeight, "double");
                 Console.WriteLine();

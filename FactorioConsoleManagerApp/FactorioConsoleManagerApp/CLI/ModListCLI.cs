@@ -31,13 +31,8 @@ namespace FactorioConsoleManagerApp.CLI
         public override void Run()
         {
             log.Info("Running Mod List Menu");
-            while (true)
+            while (!isExit)
             {
-                if(isExit)
-                {
-                    return;
-                }
-
                 Console.Clear();
                 new Header().Title("Mod Lists", titleWidth, titleHeight, "double");
                 Console.WriteLine();
@@ -69,8 +64,8 @@ namespace FactorioConsoleManagerApp.CLI
 
         private void DisplayModLists()
         {
-            IDictionary<string, ModList> modLists = this.modListDAO.GetModListsFormApp();
-            ModList activeList = this.modListDAO.GetModListFormGame();
+            IDictionary<string, ModList> modLists = this.modListDAO.GetModListsFromApp();
+            ModList activeList = this.modListDAO.GetModListFromGame();
             string tableHead = "\tModLists\n\r";
 
             StringBuilder consoleTable = new StringBuilder(tableHead);
