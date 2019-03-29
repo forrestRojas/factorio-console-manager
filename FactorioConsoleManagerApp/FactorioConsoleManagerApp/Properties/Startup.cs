@@ -4,7 +4,6 @@ using System.Text;
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
-using log4net.Core;
 using FactorioConsoleManagerApp.DAL;
 
 namespace FactorioConsoleManagerApp
@@ -41,6 +40,9 @@ namespace FactorioConsoleManagerApp
             this.serviceProvider = new ServiceCollection()
                 .AddSingleton<IModListDAO>(dao => new ModListJsonDAO(appListFilePath, gameListFilePath))
                 .BuildServiceProvider();
+
+            var modListDAO = serviceProvider.GetService<IModListDAO>();
+
         }
     }
 }
