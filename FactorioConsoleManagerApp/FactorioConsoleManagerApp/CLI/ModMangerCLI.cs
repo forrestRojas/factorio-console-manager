@@ -13,13 +13,22 @@ namespace FactorioConsoleManagerApp.CLI
         private const int titleWidth = 50;
         private const int titleHeight = 5;
 
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Runs the ModMenu CLI.
         /// </summary>
         public override void Run()
         {
+            log.Info("Running Mod Manager Menu");
             while (true)
             {
+                if(isExit)
+                {
+                    return;
+                }
+
+
                 Console.Clear();
                 new Header().Title("Mod Manager", titleWidth, titleHeight, "double");
                 Console.WriteLine();
@@ -34,6 +43,7 @@ namespace FactorioConsoleManagerApp.CLI
                 switch (userInput.ToLower())
                 {
                     case "1":
+
                         new ModListCLI().Run();
                         break;
                         
@@ -45,8 +55,8 @@ namespace FactorioConsoleManagerApp.CLI
                         return;
 
                     case "q":
-                        Environment.Exit(successCode);
-                        break;
+                        isExit = true;
+                        return;
 
                     default:
                         break;

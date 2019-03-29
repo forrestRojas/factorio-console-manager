@@ -13,13 +13,21 @@ namespace FactorioConsoleManagerApp.CLI
         private const int titleWidth = 50;
         private const int titleHeight = 5;
 
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         /// <summary>
         /// Runs the Main Menu.
         /// </summary>
         public override void Run()
         {
+            log.Info("Running Main Menu");
             while (true)
             {
+                if (isExit)
+                {
+                    return;
+                }
+
                 Console.Clear();
                 new Header().Title("Welcome to the Factorio Console Manager!", titleWidth, titleHeight, "double");
                 Console.WriteLine();
@@ -40,8 +48,8 @@ namespace FactorioConsoleManagerApp.CLI
                         break;
                         
                     case "q":
-                        Environment.Exit(successCode);
-                        break;
+                        isExit = true;
+                        return;
 
                     default:
                         break;

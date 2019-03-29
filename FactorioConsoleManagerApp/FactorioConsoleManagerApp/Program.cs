@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FactorioConsoleManagerApp.CLI;
+using System;
 
 [assembly: log4net.Config.XmlConfigurator(ConfigFile = "Log.config", Watch = true)]
 
@@ -10,14 +11,12 @@ namespace FactorioConsoleManagerApp
 
         static void Main(string[] args)
         {
+            log.Info("Application Start");
             Console.Title = "Factorio Console Manager";
 
-            Console.WriteLine("foo");
-            log.Error("I Am ERROR");
-
-            Console.ReadLine();
-            //Startup startup = new Startup();
-            //new MainMenuCLI().Run();
+            Startup startup = new Startup();
+            new MainMenuCLI().Run();
+            log.Info("Application End\n");
         }
     }
 }

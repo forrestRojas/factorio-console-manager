@@ -13,6 +13,7 @@ namespace FactorioConsoleManagerApp.CLI
         /// An Exit code that indicates a successful exit.
         /// </summary>
         protected const int successCode = 0;
+        protected static bool isExit = false;
 
         /// <summary>
         /// Runs the CLI

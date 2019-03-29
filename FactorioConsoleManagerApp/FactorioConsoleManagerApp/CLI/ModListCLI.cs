@@ -16,6 +16,9 @@ namespace FactorioConsoleManagerApp.CLI
         private const int titleHeight = 5;
 
         private readonly IModListDAO modListDAO;
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+
 
         public ModListCLI()
         {
@@ -27,9 +30,14 @@ namespace FactorioConsoleManagerApp.CLI
         /// </summary>
         public override void Run()
         {
-
+            log.Info("Running Mod List Menu");
             while (true)
             {
+                if(isExit)
+                {
+                    return;
+                }
+
                 Console.Clear();
                 new Header().Title("Mod Lists", titleWidth, titleHeight, "double");
                 Console.WriteLine();
@@ -50,7 +58,7 @@ namespace FactorioConsoleManagerApp.CLI
                         return;
 
                     case "q":
-                        Environment.Exit(successCode);
+                        isExit = true;
                         break;
 
                     default:
