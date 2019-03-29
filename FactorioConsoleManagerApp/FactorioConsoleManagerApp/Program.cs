@@ -36,9 +36,10 @@ namespace FactorioConsoleManagerApp
             AppConfig config = configuration.Get<AppConfig>();
 
             string userAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + '/';
+            // TODO Check if path exists and handle it
             string appListJsonPath = userAppData + config.AppData.PathStrings.Dirs.Data + config.AppData.PathStrings.Files.Lists;
             string gameListJsonPath = userAppData + config.GameData.PathStrings.Dirs.Mods + config.GameData.PathStrings.Files.Lists;
-
+            Path.Combine(;
 
             //setup our DI
             IServiceProvider serviceProvider = new ServiceCollection()
