@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
-using System.Configuration;
-using Newtonsoft.Json.Converters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Configuration.Json;
-using Microsoft.Extensions.Logging;
+using log4net.Core;
 using FactorioConsoleManagerApp.DAL;
 
 namespace FactorioConsoleManagerApp
@@ -34,13 +31,14 @@ namespace FactorioConsoleManagerApp
             AppConfig config = configuration.Get<AppConfig>();
 
             string userAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + '/';
-            string appListString = userAppData + config.AppData.PathStrings.Dirs.Data;
+            string appListFilePath = userAppData + config.AppData.PathStrings.Dirs.Data + config.AppData.PathStrings.Files.Lists;
+            string gameListFilePath = userAppData + config.GameData.PathStrings.Dirs.Mods + config.GameData.PathStrings.Files.Lists;
 
 
             //setup our DI
             IServiceProvider serviceProvider = new ServiceCollection()
                 .AddLogging()
-                .AddSingleton<IModListDAO>(dao => new ModListJsonDAO())
+                .AddSingleton<IModListDAO>(dao => new ModListJsonDAO(appListFilePath, gameListFilePath))
                 .BuildServiceProvider();
             // TODO configure console logging
 
@@ -50,7 +48,7 @@ namespace FactorioConsoleManagerApp
             //logger.LogDebug("Starting application");
 
             //do the actual work here
-            var bar = serviceProvider.GetService<IBarService>();
+            //var bar = serviceProvider.GetService<IBarService>();
         }
     }
 }

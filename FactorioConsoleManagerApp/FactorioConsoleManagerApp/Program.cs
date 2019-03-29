@@ -1,20 +1,23 @@
 ﻿using System;
-using Newtonsoft.Json;
-using FactorioConsoleManagerApp.CLI;
-using System.Linq;
-using System.Collections.Generic;
-using System.IO;
-using Newtonsoft.Json.Linq;
+
+[assembly: log4net.Config.XmlConfigurator(ConfigFile = "Log.config", Watch = true)]
 
 namespace FactorioConsoleManagerApp
 {
     class Program
     {
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         static void Main(string[] args)
         {
             Console.Title = "Factorio Console Manager";
-            Startup startup = new Startup();
-            new MainMenuCLI().Run();
+
+            Console.WriteLine("foo");
+            log.Error("I Am ERROR");
+
+            Console.ReadLine();
+            //Startup startup = new Startup();
+            //new MainMenuCLI().Run();
         }
     }
 }
