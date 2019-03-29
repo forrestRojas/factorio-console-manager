@@ -9,12 +9,12 @@ namespace FactorioConsoleManagerApp.CLI
     /// </summary>
     public abstract class MasterCLI
     {
-        /// <summary>
-        /// An Exit code that indicates a successful exit.
-        /// </summary>
-        protected const int successCode = 0;
         protected static bool isExit = false;
 
+        public MasterCLI()
+        {
+
+        }
         /// <summary>
         /// Runs the CLI
         /// </summary>

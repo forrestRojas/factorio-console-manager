@@ -17,6 +17,8 @@ namespace FactorioConsoleManagerApp.DAL
     {
         private readonly string appdataFilePath;
         private readonly string gamedataFilePath;
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
 
         /// <summary>
         /// Creates a ModListJsonDAO.
@@ -103,7 +105,7 @@ namespace FactorioConsoleManagerApp.DAL
             }
             catch (FileNotFoundException ex) { ErrorHandler(ex); throw; }
             catch (FileLoadException ex) { ErrorHandler(ex); throw; }
-            catch (IOException ex) { ErrorHandler(ex); throw; }
+            catch (DirectoryNotFoundException ex) { ErrorHandler(ex);  throw; }
             catch (JsonSerializationException ex) { ErrorHandler(ex); throw; }
             catch (JsonException ex) { ErrorHandler(ex); throw; }
             return modLists;

@@ -14,9 +14,10 @@ namespace FactorioConsoleManagerApp
             log.Info("Application Start");
             Console.Title = "Factorio Console Manager";
 
-            Startup startup = new Startup();
+            IServiceProvider serviceProvider = new Startup().serviceProvider;
+
             new MainMenuCLI().Run();
-            log.Info("Application End\n");
+            log.Info("Application End\r\n");
         }
     }
 }

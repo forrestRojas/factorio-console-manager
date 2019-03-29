@@ -11,6 +11,8 @@ namespace FactorioConsoleManagerApp
 {
     public class Startup
     {
+        public readonly IServiceProvider serviceProvider;
+
         public Startup()
         {
             Action<Exception> ErrorHandler = (ex) => {
@@ -36,13 +38,9 @@ namespace FactorioConsoleManagerApp
 
 
             //setup our DI
-            var serviceProvider = new ServiceCollection()
-                .AddLogging()
+            this.serviceProvider = new ServiceCollection()
                 .AddSingleton<IModListDAO>(dao => new ModListJsonDAO(appListFilePath, gameListFilePath))
-                //.AddSingleton<IModListDAO, ModListJsonDAO>(dao => new ModListJsonDAO(appListFilePath, gameListFilePath))
                 .BuildServiceProvider();
-            IModListDAO modListDAO = serviceProvider.GetService<IModListDAO>();
-            var foo = modListDAO.GetModListFromGame();
         }
     }
 }
