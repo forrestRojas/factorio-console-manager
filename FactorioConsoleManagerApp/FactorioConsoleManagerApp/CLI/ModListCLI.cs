@@ -1,4 +1,5 @@
-﻿using FactorioConsoleManagerApp.DAL;
+﻿using FactorioConsoleManagerApp.ConsoleLayout.Headers;
+using FactorioConsoleManagerApp.DAL;
 using FactorioConsoleManagerApp.Models;
 using System;
 using System.Collections.Generic;
@@ -11,15 +12,68 @@ namespace FactorioConsoleManagerApp.CLI
     /// </summary>
     public class ModListCLI : MasterCLI
     {
+        private const int titleWidth = 100;
+        private const int titleHeight = 5;
+
+        private readonly IModListDAO modListDAO;
+
+        public ModListCLI()
+        {
+            this.modListDAO = new ModListJsonDAO("C:/Users/Forrest Rojas/AppData/Roaming/Factorio/mods/mod-list.json", "C:/Users/Forrest Rojas/AppData/Roaming/Factorio/mods/mod-list.json");
+        }
+
         /// <summary>
         /// Runs the ModListCLI
         /// </summary>
         public override void Run()
         {
-            IModListDAO modListDAO = new ModListJsonDAO("C:/Users/Forrest Rojas/AppData/Roaming/Factorio/mods/mod-list.json", "C:/Users/Forrest Rojas/AppData/Roaming/Factorio/mods/mod-list.json");
-            ModList modList = modListDAO.GetModListFormGame();
-            Console.WriteLine(modList);
-            Console.Read();
+
+            while (true)
+            {
+                Console.Clear();
+                new Header().Title("Mod Lists", titleWidth, titleHeight, "double");
+                Console.WriteLine();
+                // Display modlist and active list
+                this.DisplayModLists();
+                Console.WriteLine("1 - Choose a list");
+                Console.WriteLine("2 - Go Back To Mod Manger Menu");
+                Console.WriteLine("Q - Quit");
+
+                string userInput = HelperCLI.GetString("Choose One: > ");
+
+                switch (userInput.ToLower())
+                {
+                    case "1":
+                        break;
+
+                    case "2":
+                        return;
+
+                    case "q":
+                        Environment.Exit(successCode);
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        }
+
+        private void DisplayModLists()
+        {
+            IDictionary<string, ModList> modLists = this.modListDAO.GetModListsFormApp();
+            ModList activeList = this.modListDAO.GetModListFormGame();
+            string tableHead = "\tModLists\n\r";
+
+            StringBuilder consoleTable = new StringBuilder(tableHead);
+            consoleTable.AppendLine("   ".PadRight(Console.WindowWidth - 6, '-'));
+            foreach (KeyValuePair<string, ModList> kvp in modLists)
+            {
+                string key = kvp.Key;
+                   
+            }
+            Console.WriteLine(consoleTable);
+            //throw new NotImplementedException();
         }
     }
 }

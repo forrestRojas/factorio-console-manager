@@ -51,8 +51,22 @@ namespace FactorioConsoleManagerApp.ConsoleLayout.Headers
             // Set window size if dimentions arent correct
             if ((windowWidth != titleWidth) || (bufferWidth != titleWidth))
             {
-                Console.SetWindowSize(titleWidth, Console.WindowHeight);
-                Console.SetBufferSize(titleWidth, Console.BufferHeight);
+                if (titleWidth > Console.LargestWindowWidth)
+                {
+                    titleWidth = Console.LargestWindowWidth;
+                    boxWidth = titleWidth - sizeAdjust;
+                }
+
+                if (titleWidth > bufferWidth)
+                {
+                    Console.SetBufferSize(titleWidth, Console.BufferHeight);
+                    Console.SetWindowSize(titleWidth, Console.WindowHeight);
+                }
+                else
+                {
+                    Console.SetWindowSize(titleWidth, Console.WindowHeight);
+                    Console.SetBufferSize(titleWidth, Console.BufferHeight);
+                }
             }
 
             Console.Clear();
