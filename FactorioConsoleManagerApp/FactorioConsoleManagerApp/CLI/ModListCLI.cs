@@ -64,8 +64,8 @@ namespace FactorioConsoleManagerApp.CLI
 
         private void DisplayModLists()
         {
-            IDictionary<string, ModList> modLists = this.modListDAO.GetModListsFromApp();
-            ModList activeList = this.modListDAO.GetModListFromGame();
+            IDictionary<string, ModList> modLists = this.modListDAO.GetAppLists();
+            ModList activeList = this.modListDAO.GetGameList();
             string tableHead = "\tModLists\n\r";
 
             StringBuilder consoleTable = new StringBuilder(tableHead);

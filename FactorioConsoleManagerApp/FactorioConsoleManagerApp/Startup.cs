@@ -29,11 +29,11 @@ namespace FactorioConsoleManagerApp
 
             IConfiguration configuration = builder.Build();
 
-            AppConfig config = configuration.Get<AppConfig>();
+            AppSettingsModel config = configuration.Get<AppSettingsModel>();
 
             string userAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + '/';
-            string appListFilePath = userAppData + config.AppData.PathStrings.Dirs.Data + config.AppData.PathStrings.Files.Lists;
-            string gameListFilePath = userAppData + config.GameData.PathStrings.Dirs.Mods + config.GameData.PathStrings.Files.Lists;
+            string appListFilePath = userAppData + config.AppData.Lists;
+            string gameListFilePath = userAppData + config.GameData.Lists;
 
 
             //setup our DI

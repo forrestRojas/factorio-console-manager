@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace FactorioConsoleManagerApp
+namespace FactorioConsoleManagerApp.old
 {
     /// <summary>
     /// Represents an AppConfig class.
     /// </summary>
-    public class AppSettingsModel
+    public class AppConfig
     {
         public string ApplicationName { get; set; }
         public AppDataConfig AppData { get; set; }

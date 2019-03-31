@@ -5,7 +5,7 @@ using System.Dynamic;
 using System.IO;
 using System.Text;
 
-namespace FactorioConsoleManagerApp
+namespace FactorioConsoleManagerApp.old
 {
     /// <summary>
     /// Represents an Appsettings File Model.

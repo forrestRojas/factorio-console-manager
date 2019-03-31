@@ -80,27 +80,19 @@ namespace FactorioConsoleManagerApp.DAL
                 // TODO LOG exception GetModLists method then pass up the chain
             };
 
-            SortedDictionary<string, ModList> modLists = new SortedDictionary<string, ModList>();
+            Dictionary<string, ModList> modLists = new Dictionary<string, ModList>();
             try
             {
-                DataSet jsonData = new DataSet();
+                DataSet jsonData;
                 using (StreamReader sr = new StreamReader(filePath))
+                using (JsonReader reader = new JsonTextReader(sr))
                 {
-                    StringBuilder json = new StringBuilder();
-                    while (!sr.EndOfStream)
-                    {
-                        json.Append(sr.ReadLine());
-                    }
-                    // TODO Vaildate json Scheme to work with dataSets THROW error if vaildation fails
-                    //json.VaidataScheme();
-                    jsonData = JsonConvert.DeserializeObject<DataSet>(json.ToString());
+                    JsonSerializer serializer = new JsonSerializer();
+                    jsonData = serializer.Deserialize<DataSet>(reader);    
                 }
-
-                foreach (DataTable table in jsonData.Tables)
-                {                    
-                    ModList modList = ConvertTableToModList(table);
-                    modLists.Add(modList.Name, modList);
-                }
+                //    // TODO Vaildate json Scheme to work with dataTable or Array THROW error if vaildation fails
+                //    //json.VaidataScheme();
+                modLists = ConvertTablesToModListsDictionary(jsonData.Tables);
             }
             catch (FileNotFoundException ex) { ErrorHandler(ex); throw; }
             catch (FileLoadException ex) { ErrorHandler(ex); throw; }
@@ -112,29 +104,59 @@ namespace FactorioConsoleManagerApp.DAL
         }
 
         /// <summary>
+        /// Converts the table collection to a dictionary
+        /// </summary>
+        /// <param name="tables">a collection of dataTabls</param>
+        /// <returns></returns>
+        private Dictionary<string, ModList> ConvertTablesToModListsDictionary(DataTableCollection tables)
+        {
+            Dictionary<string, ModList> output = new Dictionary<string, ModList>();
+            foreach (DataTable table in tables)
+            {
+                string name = table.TableName.ToLower();
+                ModList list = ConvertTableToModList(table);
+                output.Add(name, list);
+            }
+
+            return output;
+        }
+
+        /// <summary>
         /// Converts the Table data to a ModList.
         /// </summary>
         /// <param name="dataTable">the table of mods assiocated with the list</param>
         /// <returns>A ModList</returns>
-        private ModList ConvertTableToModList(DataTable dataTable)
+        private ModList ConvertTableToModList(DataTable table)
         {
             ModList modList = new ModList
             {
-                Name = dataTable.TableName.ToLower(),
-                ModListItems = new SortedDictionary<string, ModListItem>()
+                Name = table.TableName.ToLower(),
+                ModListItems = CovertDataRowsToModListItems(table.Rows)
             };
 
-            foreach (DataRow row in dataTable.Rows)
+            return modList;
+        }
+
+
+        /// <summary>
+        /// Converts DataRows to modlistItems.
+        /// </summary>
+        /// <param name="rows">Acollection of data rows.</param>
+        /// <returns></returns>
+        private IDictionary<string, ModListItem> CovertDataRowsToModListItems(DataRowCollection rows)
+        {
+            Dictionary<string, ModListItem> modListItems = new Dictionary<string, ModListItem>();
+            foreach (DataRow row in rows)
             {
                 ModListItem modListItem = new ModListItem
                 {
                     Name = Convert.ToString(row["name"]),
                     Enabled = Convert.ToBoolean(row["enabled"])
                 };
-                modList.ModListItems.Add(modListItem.Name, modListItem);
+                modListItems.Add(modListItem.Name, modListItem);
             }
 
-            return modList;
+            return modListItems;
         }
     }
 

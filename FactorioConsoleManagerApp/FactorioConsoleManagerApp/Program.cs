@@ -33,12 +33,13 @@ namespace FactorioConsoleManagerApp
 
             IConfiguration configuration = builder.Build();
 
-            AppConfig config = configuration.Get<AppSettingsModel>().ConvertModelToConfig();
+            //AppConfig config = configuration.Get<AppSettingsModel>().ConvertModelToAppConfig();
+            AppSettingsModel config = configuration.Get<AppSettingsModel>();
 
             string userAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + '/';
             // TODO Check if path exists and handle it
-            string appListJsonPath = userAppData + config.AppData.PathStrings.Dirs.Data + config.AppData.PathStrings.Files.Lists;
-            string gameListJsonPath = userAppData + config.GameData.PathStrings.Dirs.Mods + config.GameData.PathStrings.Files.Lists;
+            string appListJsonPath = userAppData + config.AppData.Lists;
+            string gameListJsonPath = userAppData + config.GameData.Lists;
             //Path.Combine(;
 
             //setup our DI
