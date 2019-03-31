@@ -23,6 +23,7 @@ namespace FactorioConsoleManagerApp.CLI
             log.Info("Running Main Menu");
             while (!isExit)
             {
+
                 Console.Clear();
                 new Header().Title("Welcome to the Factorio Console Manager!", titleWidth, titleHeight, "double");
                 Console.WriteLine();

@@ -33,7 +33,7 @@ namespace FactorioConsoleManagerApp
 
             IConfiguration configuration = builder.Build();
 
-            AppConfig config = configuration.Get<AppConfig>();
+            AppConfig config = configuration.Get<AppSettingsModel>().ConvertModelToConfig();
 
             string userAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + '/';
             // TODO Check if path exists and handle it

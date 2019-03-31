@@ -26,6 +26,7 @@ namespace FactorioConsoleManagerApp.CLI
                     Console.CursorTop -= returnToInputLine;
                     ClearLine();
                 }
+
                 Console.Write(message.Trim(' ') + ' ');
                 userInput = Console.ReadLine();
                 numberOfAttempts++;
