@@ -15,38 +15,38 @@ namespace FactorioConsoleManagerApp.DAL
     /// </summary>
     public class ModListJsonDAO : IModListDAO
     {
-        private readonly string appdataFilePath;
-        private readonly string gamedataFilePath;
+        private readonly string appJson;
+        private readonly string gameJson;
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
 
         /// <summary>
         /// Creates a ModListJsonDAO.
         /// </summary>
-        /// <param name="appdataFilePath">The application's ModList file path</param>
-        /// <param name="gamedataFilePath">The Game's ModList File Path</param>
-        public ModListJsonDAO(string appdataFilePath, string gamedataFilePath)
+        /// <param name="appdataModListsPath">The application's ModList file path</param>
+        /// <param name="gamedataModListPath">The Game's ModList File Path</param>
+        public ModListJsonDAO(string appdataModListsPath, string gamedataModListPath)
         {
-            this.appdataFilePath = appdataFilePath;
-            this.gamedataFilePath = gamedataFilePath;
+            this.appJson = appdataModListsPath;
+            this.gameJson = gamedataModListPath;
         }
 
         /// <summary>
         /// Gets all the ModLists saved in the application's data.
         /// </summary>
         /// <returns></returns>
-        public IDictionary<string, ModList> GetModListsFromApp()
+        public IDictionary<string, ModList> GetAppLists()
         {
-            return this.GetModLists(appdataFilePath);
+            return this.GetModListsFromJson(this.appJson);
         }
 
         /// <summary>
         /// Gets the Game's ModList from the mod-list json file.
         /// </summary>
         /// <returns>The game's ModList</returns>
-        public ModList GetModListFromGame()
+        public ModList GetGameList()
         {
-            IDictionary<string, ModList> modLists = this.GetModLists(gamedataFilePath);
+            IDictionary<string, ModList> modLists = this.GetModListsFromJson(this.gameJson);
             return modLists["mods"];
 
         }
@@ -64,7 +64,7 @@ namespace FactorioConsoleManagerApp.DAL
         /// Write/Overwrites the ModList to the game mod-list file.
         /// </summary>
         /// <param name="modList">The list to use</param>
-        public void WriteModListToGameModsFolder(ModList modList)
+        public void WriteListToGame(ModList modList)
         {
             throw new NotImplementedException();
         }
@@ -74,18 +74,17 @@ namespace FactorioConsoleManagerApp.DAL
         /// </summary>
         /// <param name="filePath">The File path to the json file</param>
         /// <returns>IDctionaray of ModLists</returns>
-        private IDictionary<string, ModList> GetModLists(string filePath)
+        private IDictionary<string, ModList> GetModListsFromJson(string filePath)
         {
             Action<Exception> ErrorHandler = (ex) => {
                 // TODO LOG exception GetModLists method then pass up the chain
             };
 
-            //IDictionary<list name, IDictionary<mod name, Mod>>
             SortedDictionary<string, ModList> modLists = new SortedDictionary<string, ModList>();
             try
             {
                 DataSet jsonData = new DataSet();
-                using (StreamReader sr = new StreamReader(appdataFilePath))
+                using (StreamReader sr = new StreamReader(filePath))
                 {
                     StringBuilder json = new StringBuilder();
                     while (!sr.EndOfStream)
@@ -108,6 +107,7 @@ namespace FactorioConsoleManagerApp.DAL
             catch (DirectoryNotFoundException ex) { ErrorHandler(ex);  throw; }
             catch (JsonSerializationException ex) { ErrorHandler(ex); throw; }
             catch (JsonException ex) { ErrorHandler(ex); throw; }
+
             return modLists;
         }
 
