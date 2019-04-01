@@ -7,6 +7,9 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Linq;
 using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Schema;
+using Newtonsoft.Json.Linq;
+using FactorioConsoleManagerApp.JsonSchemas;
 
 namespace FactorioConsoleManagerApp.DAL
 {
@@ -17,6 +20,7 @@ namespace FactorioConsoleManagerApp.DAL
     {
         private readonly string appJson;
         private readonly string gameJson;
+        private readonly IJSchemaHandler schemaHandler;
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
 
@@ -29,6 +33,8 @@ namespace FactorioConsoleManagerApp.DAL
         {
             this.appJson = appdataModListsPath;
             this.gameJson = gamedataModListPath;
+            // TODO Complete DI for Json Schema Handler
+            this.schemaHandler = new JSchemaHandler();
         }
 
         /// <summary>
@@ -86,12 +92,16 @@ namespace FactorioConsoleManagerApp.DAL
                 DataSet jsonData;
                 using (StreamReader sr = new StreamReader(filePath))
                 using (JsonReader reader = new JsonTextReader(sr))
+                using (JSchemaValidatingReader validatingReader = new JSchemaValidatingReader(reader))
                 {
+                    //JSchemaValidatingReader validatingReader = new JSchemaValidatingReader(reader);
+                    validatingReader.Schema = schemaHandler.GetModListsSchema();
+                    IList<string> messages = new List<string>();
+                    validatingReader.ValidationEventHandler += (o, a) => messages.Add(a.Message);
+
                     JsonSerializer serializer = new JsonSerializer();
-                    jsonData = serializer.Deserialize<DataSet>(reader);    
+                    jsonData = serializer.Deserialize<DataSet>(validatingReader);
                 }
-                //    // TODO Vaildate json Scheme to work with dataTable or Array THROW error if vaildation fails
-                //    //json.VaidataScheme();
                 modLists = ConvertTablesToModListsDictionary(jsonData.Tables);
             }
             catch (FileNotFoundException ex) { ErrorHandler(ex); throw; }

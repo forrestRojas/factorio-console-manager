@@ -1,0 +1,45 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "https://forrestrojas.com/factorioconsoleapp/schemas/modlists-schema",
+    "title": "Mod List Schema",
+    "definitions": {
+        "modListItem": {
+            "type": "object",
+            "required": ["name", "enabled"],
+            "properties": {
+                "name": {
+                "type": "string"
+                },
+                "enabled": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "modListItemBase": {
+        "type": "object",
+            "required": ["name", "enabled"],
+            "properties": {
+            "name": {
+                "const": "base"
+            },
+                "enabled": {
+                "enum": [ true ]
+                }
+            }
+        }
+    }, 
+
+    "type": "object",
+    "required": ["mods"],
+    "minProperties": 1,
+        "properties": {
+        "mods": { 
+            "type": "array",
+            "minItems": 1,
+            "items": [
+                {"$ref": "#/definitions/modListItemBase" },
+                { "$ref": "#/definitions/modListItem" }
+            ]
+        }
+    }
+}

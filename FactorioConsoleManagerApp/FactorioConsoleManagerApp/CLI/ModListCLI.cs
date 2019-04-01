@@ -22,7 +22,7 @@ namespace FactorioConsoleManagerApp.CLI
 
         public ModListCLI()
         {
-            this.modListDAO = new ModListJsonDAO("C:/Users/Forrest Rojas/AppData/Roaming/Factorio/mods/mod-list.json", "C:/Users/Forrest Rojas/AppData/Roaming/Factorio/mods/mod-list.json");
+            this.modListDAO = new ModListJsonDAO("C:/Users/Forrest/AppData/Roaming/Factorio/mods/mod-list.json", "C:/Users/Forrest/AppData/Roaming/Factorio/mods/mod-list.json");
         }
 
         /// <summary>
