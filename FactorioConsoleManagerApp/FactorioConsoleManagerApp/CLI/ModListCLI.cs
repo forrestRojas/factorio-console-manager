@@ -73,10 +73,11 @@ namespace FactorioConsoleManagerApp.CLI
             foreach (KeyValuePair<string, ModList> kvp in modLists)
             {
                 string key = kvp.Key;
+                ModList list = kvp.Value;
+                consoleTable.AppendLine("\t" + list.Name);
                    
             }
             Console.WriteLine(consoleTable);
-            //throw new NotImplementedException();
         }
     }
 }
