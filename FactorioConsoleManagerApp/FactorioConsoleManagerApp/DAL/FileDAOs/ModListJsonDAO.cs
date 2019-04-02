@@ -10,6 +10,7 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Schema;
 using Newtonsoft.Json.Linq;
 using FactorioConsoleManagerApp.JsonSchemas;
+using System.Diagnostics;
 
 namespace FactorioConsoleManagerApp.DAL
 {
@@ -89,13 +90,14 @@ namespace FactorioConsoleManagerApp.DAL
             Dictionary<string, ModList> modLists = new Dictionary<string, ModList>();
             try
             {
+                // TODO Optimize json deserilzers | line 99 and line 105
                 DataSet jsonData;
                 using (StreamReader sr = new StreamReader(filePath))
                 using (JsonReader reader = new JsonTextReader(sr))
                 using (JSchemaValidatingReader validatingReader = new JSchemaValidatingReader(reader))
                 {
-                    //JSchemaValidatingReader validatingReader = new JSchemaValidatingReader(reader);
                     validatingReader.Schema = schemaHandler.GetModListsSchema();
+
                     IList<string> messages = new List<string>();
                     validatingReader.ValidationEventHandler += (o, a) => messages.Add(a.Message);
 

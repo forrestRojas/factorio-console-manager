@@ -23,7 +23,7 @@ namespace FactorioConsoleManagerApp.JsonSchemas
             using (StreamReader sr = new StreamReader(this.modListsSchemaPath))
             using (JsonReader reader = new JsonTextReader(sr))
             {
-               schema  = JSchema.Load(reader);
+                schema = JSchema.Load(reader);
             }
 
             return schema;
