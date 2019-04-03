@@ -64,6 +64,7 @@ namespace FactorioConsoleManagerApp.CLI
 
         private void DisplayModLists()
         {
+            // TODO Decouple the getList so that we dont need to go to the DAL every time
             IDictionary<string, ModList> modLists = this.modListDAO.GetAppLists();
             ModList activeList = this.modListDAO.GetGameList();
             string tableHead = "\tModLists\n\r";

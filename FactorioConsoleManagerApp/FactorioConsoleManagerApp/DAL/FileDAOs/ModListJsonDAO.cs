@@ -90,7 +90,7 @@ namespace FactorioConsoleManagerApp.DAL
             Dictionary<string, ModList> modLists = new Dictionary<string, ModList>();
             try
             {
-                // TODO Optimize json deserilzers | line 99 and line 105
+                // TODO Optimize json deserilzers | line 99 and line 107
                 DataSet jsonData;
                 using (StreamReader sr = new StreamReader(filePath))
                 using (JsonReader reader = new JsonTextReader(sr))
@@ -101,8 +101,14 @@ namespace FactorioConsoleManagerApp.DAL
                     IList<string> messages = new List<string>();
                     validatingReader.ValidationEventHandler += (o, a) => messages.Add(a.Message);
 
+                    Stopwatch s = new Stopwatch();
+                    s.Start();
                     JsonSerializer serializer = new JsonSerializer();
                     jsonData = serializer.Deserialize<DataSet>(validatingReader);
+                    //jsonData = ServiceStack.Text.JsonSerializer.DeserializeFromReader<DataSet>(sr);
+                    s.Stop();
+                    Console.WriteLine(s.ElapsedMilliseconds);
+                    JSchema jSchema = new JSchema();
                 }
                 modLists = ConvertTablesToModListsDictionary(jsonData.Tables);
             }
