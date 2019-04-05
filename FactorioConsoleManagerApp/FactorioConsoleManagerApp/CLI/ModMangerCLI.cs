@@ -1,4 +1,5 @@
-﻿using FactorioConsoleManagerApp.ConsoleLayout.Headers;
+﻿using FactorioConsoleManagerApp.BLL;
+using FactorioConsoleManagerApp.ConsoleLayout.Headers;
 using FactorioConsoleManagerApp.DAL;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,11 @@ namespace FactorioConsoleManagerApp.CLI
         private const int titleHeight = 5;
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-        private readonly IModListDAO modListDAO;
+        private readonly IModListManager modListManager;
 
-        public ModMangerCLI(IModListDAO modListDAO)
+        public ModMangerCLI(IModListManager modListManager)
         {
-            this.modListDAO = modListDAO;
+            this.modListManager = modListManager;
         }
 
         /// <summary>
@@ -45,7 +46,7 @@ namespace FactorioConsoleManagerApp.CLI
                 {
                     case "1":
 
-                        new ModListCLI(modListDAO).Run();
+                        new ModListCLI(modListManager).Run();
                         break;
                         
                     case "2":

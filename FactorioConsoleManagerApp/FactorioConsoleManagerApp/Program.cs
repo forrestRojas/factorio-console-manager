@@ -1,4 +1,5 @@
-﻿using FactorioConsoleManagerApp.CLI;
+﻿using FactorioConsoleManagerApp.BLL;
+using FactorioConsoleManagerApp.CLI;
 using FactorioConsoleManagerApp.DAL;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -48,8 +49,9 @@ namespace FactorioConsoleManagerApp
                 .BuildServiceProvider();
 
             IModListDAO modListDAO = serviceProvider.GetService<IModListDAO>();
+            IModListManager modListManager = new ModListManager(modListDAO);
 
-            new MainMenuCLI(modListDAO).Run();
+            new MainMenuCLI(modListManager).Run();
             log.Info("Application End\r\n");
         }
     }

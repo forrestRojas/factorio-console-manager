@@ -1,4 +1,5 @@
-﻿using FactorioConsoleManagerApp.ConsoleLayout.Headers;
+﻿using FactorioConsoleManagerApp.BLL;
+using FactorioConsoleManagerApp.ConsoleLayout.Headers;
 using FactorioConsoleManagerApp.DAL;
 using FactorioConsoleManagerApp.Models;
 using System;
@@ -17,13 +18,13 @@ namespace FactorioConsoleManagerApp.CLI
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly IModListDAO modListDAO;
+        //TODO Seperate list functonallity from CLI
+        private readonly IModListManager modListManager;
 
 
-
-        public ModListCLI(IModListDAO modListDAO)
+        public ModListCLI(IModListManager modListManager)
         {
-            this.modListDAO = modListDAO;
+            this.modListManager = modListManager;
         }
 
         /// <summary>
@@ -65,19 +66,19 @@ namespace FactorioConsoleManagerApp.CLI
 
         private void DisplayModLists()
         {
-            // TODO Decouple the getList so that we dont need to go to the DAL every time
-            IDictionary<string, ModList> modLists = this.modListDAO.GetAppLists();
-            ModList activeList = this.modListDAO.GetGameList();
             string tableHead = "\tModLists\n\r";
 
             StringBuilder consoleTable = new StringBuilder(tableHead);
-            consoleTable.AppendLine("   ".PadRight(Console.WindowWidth - 6, '-'));
-            foreach (KeyValuePair<string, ModList> kvp in modLists)
+            consoleTable.AppendLine("    ".PadRight(40, '-'));
+            consoleTable.AppendLine("\tMODLIST NAME - NUMBER OF MODS");
+            consoleTable.AppendLine();
+            foreach (KeyValuePair<string, ModList> kvp in this.modListManager.AppLists)
             {
                 string key = kvp.Key;
                 ModList list = kvp.Value;
-                consoleTable.AppendLine("\t" + list.Name);
-                   
+                consoleTable.Append('\t');
+                consoleTable.Append(list.Name.PadRight(20, '.'));    
+                consoleTable.AppendLine(list.ModListItems.Count.ToString());
             }
             Console.WriteLine(consoleTable);
         }
