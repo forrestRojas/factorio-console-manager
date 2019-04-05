@@ -15,14 +15,15 @@ namespace FactorioConsoleManagerApp.CLI
         private const int titleWidth = 100;
         private const int titleHeight = 5;
 
-        private readonly IModListDAO modListDAO;
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
+        private readonly IModListDAO modListDAO;
 
 
-        public ModListCLI()
+
+        public ModListCLI(IModListDAO modListDAO)
         {
-            this.modListDAO = new ModListJsonDAO(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +  "/Factorio/mods/mod-list.json", Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "/Factorio/mods/mod-list.json");
+            this.modListDAO = modListDAO;
         }
 
         /// <summary>

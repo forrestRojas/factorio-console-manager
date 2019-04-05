@@ -49,7 +49,7 @@ namespace FactorioConsoleManagerApp
 
             IModListDAO modListDAO = serviceProvider.GetService<IModListDAO>();
 
-            new MainMenuCLI().Run();
+            new MainMenuCLI(modListDAO).Run();
             log.Info("Application End\r\n");
         }
     }

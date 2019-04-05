@@ -1,4 +1,5 @@
 ﻿using FactorioConsoleManagerApp.ConsoleLayout.Headers;
+using FactorioConsoleManagerApp.DAL;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,6 +15,12 @@ namespace FactorioConsoleManagerApp.CLI
         private const int titleHeight = 5;
 
         private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+        private readonly IModListDAO modListDAO;
+
+        public MainMenuCLI(IModListDAO modListDAO)
+        {
+            this.modListDAO = modListDAO;
+        }
 
         /// <summary>
         /// Runs the Main Menu.
@@ -36,7 +43,7 @@ namespace FactorioConsoleManagerApp.CLI
                 switch (userInput.ToLower())
                 {
                     case "1":
-                        new ModMangerCLI().Run();
+                        new ModMangerCLI(modListDAO).Run();
                         break;
 
                     case "2":

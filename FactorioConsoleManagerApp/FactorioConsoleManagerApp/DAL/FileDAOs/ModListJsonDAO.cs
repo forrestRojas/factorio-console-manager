@@ -101,13 +101,13 @@ namespace FactorioConsoleManagerApp.DAL
                     IList<string> messages = new List<string>();
                     validatingReader.ValidationEventHandler += (o, a) => messages.Add(a.Message);
 
-                    Stopwatch s = new Stopwatch();
-                    s.Start();
+                    //Stopwatch s = new Stopwatch();
+                    //s.Start();
                     JsonSerializer serializer = new JsonSerializer();
                     jsonData = serializer.Deserialize<DataSet>(validatingReader);
                     //jsonData = ServiceStack.Text.JsonSerializer.DeserializeFromReader<DataSet>(sr);
-                    s.Stop();
-                    Console.WriteLine(s.ElapsedMilliseconds);
+                    //s.Stop();
+                    //Console.WriteLine(s.ElapsedMilliseconds);
                     JSchema jSchema = new JSchema();
                 }
                 modLists = ConvertTablesToModListsDictionary(jsonData.Tables);

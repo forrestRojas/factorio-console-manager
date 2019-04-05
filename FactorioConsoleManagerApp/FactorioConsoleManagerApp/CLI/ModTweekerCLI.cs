@@ -5,7 +5,7 @@ namespace FactorioConsoleManagerApp.CLI
     /// <summary>
     /// Represents a ModTweeker Menu.
     /// </summary>
-    public class ModTweekerCLI : MainMenuCLI
+    public class ModTweekerCLI : MasterCLI
     {
         /// <summary>
         /// Creates a ModTweekerCLI.

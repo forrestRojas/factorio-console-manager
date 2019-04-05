@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FactorioConsoleManagerApp.DAL;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -15,6 +16,7 @@ namespace FactorioConsoleManagerApp.CLI
         {
 
         }
+
         /// <summary>
         /// Runs the CLI
         /// </summary>
