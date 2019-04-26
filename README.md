@@ -4,7 +4,7 @@ A console utility application deisnged to allow one to configure and save modlis
 
 ## Features
 
-   A list of features that the complete project 
+   A list of features that the complete project will aim to have:
 * Load, save and configure ModLists
 * Calculate ratios base on given user inputs
 * Configure file pathing to desired folder to grab mods
